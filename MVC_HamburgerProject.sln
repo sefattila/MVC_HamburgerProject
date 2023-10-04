@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HamburgerProject.CORE", "HamburgerProject.CORE\HamburgerProject.CORE.csproj", "{294C38BC-8B5E-47CD-811A-F7E7EF520666}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HampurgerProjectMVC.UI", "HampurgerProjectMVC.UI\HampurgerProjectMVC.UI.csproj", "{93DABD18-9802-4A25-8F04-289D6D1F3474}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HamburgerProject.REPOSITORY", "HamburgerProject.REPOSITORY\HamburgerProject.REPOSITORY.csproj", "{A9D17CCB-4F0C-4E14-A9B4-B7845318FA6D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{294C38BC-8B5E-47CD-811A-F7E7EF520666}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{294C38BC-8B5E-47CD-811A-F7E7EF520666}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{294C38BC-8B5E-47CD-811A-F7E7EF520666}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{294C38BC-8B5E-47CD-811A-F7E7EF520666}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93DABD18-9802-4A25-8F04-289D6D1F3474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93DABD18-9802-4A25-8F04-289D6D1F3474}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93DABD18-9802-4A25-8F04-289D6D1F3474}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93DABD18-9802-4A25-8F04-289D6D1F3474}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9D17CCB-4F0C-4E14-A9B4-B7845318FA6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9D17CCB-4F0C-4E14-A9B4-B7845318FA6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9D17CCB-4F0C-4E14-A9B4-B7845318FA6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9D17CCB-4F0C-4E14-A9B4-B7845318FA6D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B357E4AD-5ECB-4027-9554-917CC3D2701C}
+	EndGlobalSection
+EndGlobal
