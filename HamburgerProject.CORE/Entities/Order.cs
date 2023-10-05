@@ -18,9 +18,10 @@ namespace HamburgerProject.CORE.Entities
         public DateTime? DeleteDate { get; set; }
         public Status Status { get; set; } = Status.Active;
         public string AppUserId { get; set; }
+        public int MenuId { get; set; }
 
         //Nav Prop
-        public virtual ICollection<Menu> Menus { get; set; }
+        public virtual Menu Menu { get; set; }
         public virtual ICollection<Sauce> Sauces { get; set; }
         public virtual AppUser AppUser { get; set; }
     }

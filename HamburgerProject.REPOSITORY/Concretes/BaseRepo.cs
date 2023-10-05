@@ -39,7 +39,7 @@ namespace HamburgerProject.REPOSITORY.Concretes
             _context.SaveChanges();
         }
 
-        public List<T> GetAll()
+        public IList<T> GetAll()
         {
             return _table.ToList();
         }
@@ -54,7 +54,7 @@ namespace HamburgerProject.REPOSITORY.Concretes
             return _table.Find(id);
         }
 
-        public List<T> GetDefaults(Expression<Func<T, bool>> expression)
+        public IList<T> GetDefaults(Expression<Func<T, bool>> expression)
         {
             return _table.Where(expression).ToList();
         }

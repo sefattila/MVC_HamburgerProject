@@ -16,7 +16,7 @@ namespace HamburgerProject.REPOSITORY.Interfaces
         bool Any(Expression<Func<T, bool>> expression);
         T GetDefault(Expression<Func<T, bool>> expression);
         T GetDefaultById(int id);
-        List<T> GetDefaults(Expression<Func<T, bool>> expression);
-        List<T> GetAll();
+        IList<T> GetDefaults(Expression<Func<T, bool>> expression);
+        IList<T> GetAll();
     }
 }

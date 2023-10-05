@@ -11,15 +11,21 @@ namespace HamburgerProject.REPOSITORY.Contexts
 {
     public class AppDbContext : IdentityDbContext<AppUser>
     {
-        public DbSet<Sauce> Sauces { get; set; }
-        public DbSet<Menu> Menus { get; set; }
-        public DbSet<Order> Orders { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
+        public DbSet<Sauce> Sauces { get; set; }
+        public DbSet<Menu> Menus { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Order>()
+                .HasMany(o => o.Sauces)
+                .WithMany(s => s.Orders)
+                .UsingEntity(x => x.ToTable("OrderSauce"));
+
+            base.OnModelCreating(builder);
         }
     }
 }

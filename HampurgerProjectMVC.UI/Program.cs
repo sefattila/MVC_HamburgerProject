@@ -1,3 +1,11 @@
+using HamburgerProject.BLL.MenuService;
+using HamburgerProject.BLL.OrderService;
+using HamburgerProject.BLL.SauceService;
+using HamburgerProject.REPOSITORY.Concretes;
+using HamburgerProject.REPOSITORY.Contexts;
+using HamburgerProject.REPOSITORY.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
 namespace HampurgerProjectMVC.UI
 {
     public class Program
@@ -9,7 +17,22 @@ namespace HampurgerProjectMVC.UI
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+
             var conn = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(conn);
+                options.UseLazyLoadingProxies();
+            });
+
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            //builder.Services.AddTransient<ISauceRepo, SauceRepo>();
+            //builder.Services.AddTransient<IOrderRepo, OrderRepo>();
+            //builder.Services.AddTransient<IMenuRepo, MenuRepo>();
+
+            //builder.Services.AddTransient<ISauceService, SauceService>();
+
 
             var app = builder.Build();
 
