@@ -13,10 +13,10 @@ namespace HamburgerProject.CORE.Entities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public DateTime CreateDate { get; set; }
+        public DateTime CreateDate { get; set; } = DateTime.Now;
         public DateTime? UpdateDate { get; set; }
         public DateTime? DeleteDate { get; set; }
-        public Status Status { get; set; }
+        public Status Status { get; set; } = Status.Active;
 
 
         //Nav Prop

@@ -1,4 +1,6 @@
-﻿using HamburgerProject.CORE.Entities;
+﻿using HamburgerProject.BLL.DTOs.MenuDTOs;
+using HamburgerProject.BLL.DTOs.OrderDTOs;
+using HamburgerProject.CORE.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +12,11 @@ namespace HamburgerProject.BLL.MenuService
 {
     public interface IMenuService
     {
-        void Create(Menu entity);
-        void Update(Menu entity);
-        void Delete(Menu entity);
-        bool Any(Expression<Func<Menu, bool>> expression);
-        Menu GetDefault(Expression<Func<Menu, bool>> expression);
-        Menu GetDefaultById(int id);
-        List<Menu> GetDefaults(Expression<Func<Menu, bool>> expression);
-        List<Menu> GetAll();
+        void Create(MenuCreateDTO entity);
+        void Update(MenuUpdateDTO entity);
+        void Delete(int id);
+        bool IsIdExist(string menuName);
+        IList<MenuDTO> GetActive();
+        IList<MenuDTO> GetAll();
     }
 }

@@ -1,4 +1,6 @@
-﻿using HamburgerProject.CORE.Entities;
+﻿using HamburgerProject.BLL.DTOs.OrderDTOs;
+using HamburgerProject.BLL.DTOs.SauceDTOs;
+using HamburgerProject.CORE.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +12,11 @@ namespace HamburgerProject.BLL.OrderService
 {
     public interface IOrderService
     {
-        void Create(Order entity);
-        void Update(Order entity);
-        void Delete(Order entity);
-        bool Any(Expression<Func<Order, bool>> expression);
-        Order GetDefault(Expression<Func<Order, bool>> expression);
-        Order GetDefaultById(int id);
-        List<Order> GetDefaults(Expression<Func<Order, bool>> expression);
-        List<Order> GetAll();
+        void Create(OrderCreateDTO entity);
+        void Update(OrderUpdateDTO entity);
+        void Delete(int id);
+        bool IsIdExist(int id);
+        IList<OrderDTO> GetActive();
+        IList<OrderDTO> GetAll();
     }
 }

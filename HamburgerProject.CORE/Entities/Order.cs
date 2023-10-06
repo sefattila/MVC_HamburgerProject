@@ -11,7 +11,7 @@ namespace HamburgerProject.CORE.Entities
     public class Order : IBaseEntity
     {
         public int Id { get; set; }
-        public Sizes Size { get; set; } = Sizes.Little;
+        public Sizes? Size { get; set; } = Sizes.Little;
         public int Quantity { get; set; }
         public DateTime CreateDate { get; set; } = DateTime.Now;
         public DateTime? UpdateDate { get; set; }
