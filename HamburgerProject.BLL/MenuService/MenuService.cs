@@ -50,6 +50,11 @@ namespace HamburgerProject.BLL.MenuService
             return menuDTOs;
         }
 
+        public MenuDTO GetById(int id)
+        {
+            return _mapper.Map<MenuDTO>(_repo.GetDefaultById(id));
+        }
+
         public bool IsIdExist(string menuName)
         {
             return _repo.Any(x=>x.MenuName== menuName);

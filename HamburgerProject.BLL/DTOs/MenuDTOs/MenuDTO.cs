@@ -12,6 +12,6 @@ namespace HamburgerProject.BLL.DTOs.MenuDTOs
         public int Id { get; set; }
         public string MenuName { get; set; }
         public double MenuPrice { get; set; }
-        public ICollection<OrderDTO> OrderDTOs { get; set; }
+        //public ICollection<OrderDTO> OrderDTOs { get; set; }
     }
 }

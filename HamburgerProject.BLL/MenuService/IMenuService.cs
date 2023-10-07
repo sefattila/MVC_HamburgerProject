@@ -18,5 +18,6 @@ namespace HamburgerProject.BLL.MenuService
         bool IsIdExist(string menuName);
         IList<MenuDTO> GetActive();
         IList<MenuDTO> GetAll();
+        MenuDTO GetById(int id);
     }
 }
