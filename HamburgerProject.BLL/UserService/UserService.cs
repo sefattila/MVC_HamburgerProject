@@ -16,29 +16,32 @@ namespace HamburgerProject.BLL.UserService
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IMapper _mapper;
-        private readonly IBaseRepo<AppUser> _baseRepo;
+        private readonly IAppUserRepo _userRepo;
 
-        public UserService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IMapper mapper, IBaseRepo<AppUser> baseRepo)
+        public UserService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IMapper mapper, IAppUserRepo userRepo)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
-            _baseRepo = baseRepo;
+            _userRepo = userRepo;
         }
 
-        public async Task Create(UserRegisterDTO entity)
+        public async Task<IdentityResult> Create(UserRegisterDTO entity, string Password)
         {
             if (entity == null)
             {
                 throw new Exception("User Boş");
             }
             AppUser appUser = _mapper.Map<AppUser>(entity);
-            var result = await _userManager.CreateAsync(appUser, entity.Password);
-            if (!result.Succeeded)
-            {
-                throw new Exception("Kullanıcı Eklerken Hata");
-            }
+            //AppUser appUserRole=await _userManager.FindByEmailAsync(entity.Email);
+
+            await _userManager.AddToRoleAsync(appUser, "user");
+
+            var result = await _userManager.CreateAsync(appUser, Password);
+
+            return result;
         }
 
         public async Task Delete(string id)
@@ -47,42 +50,59 @@ namespace HamburgerProject.BLL.UserService
             {
                 throw new Exception("Id Boş");
             }
-            if (_baseRepo.Any(x => x.Id == id))
+            if (_userRepo.Any(x => x.Id == id))
             {
                 throw new Exception("Böyle Bir Id Yok");
             }
             AppUser appUser = await _userManager.FindByIdAsync(id);
             appUser.DeleteDate = DateTime.Now;
             appUser.Status = Status.Active;
-            var result = await _userManager.UpdateAsync(appUser);
-            if (!result.Succeeded)
-            {
-                throw new Exception("Kullanıcı Silerken Hata");
-            }
+            await _userManager.UpdateAsync(appUser);
+
         }
 
         public IList<UserDTO> GetActive()
         {
-            IList<AppUser> appUsers = _baseRepo.GetDefaults(x => x.Status != Status.Passive);
+            IList<AppUser> appUsers = _userRepo.GetDefaults(x => x.Status != Status.Passive);
             IList<UserDTO> userDTOs = _mapper.Map<IList<AppUser>, IList<UserDTO>>(appUsers);
             return userDTOs;
         }
 
         public IList<UserDTO> GetAll()
         {
-            IList<AppUser> appUsers = _baseRepo.GetAll();
+            IList<AppUser> appUsers = _userRepo.GetAll();
             IList<UserDTO> userDTOs = _mapper.Map<IList<AppUser>, IList<UserDTO>>(appUsers);
             return userDTOs;
         }
 
         public bool IsIdExist(string id)
         {
-            return _baseRepo.Any(x => x.Id == id);
+            return _userRepo.Any(x => x.Id == id);
         }
 
-        public Task Update(UserUpdateDTO entity)
+        public async Task LogIn(UserLoginDTO login)
         {
-            throw new NotImplementedException();
+            if (login == null)
+                throw new Exception("Login Entity Boş");
+            AppUser appUser = await _userManager.FindByNameAsync(login.UserName);
+            if (appUser == null)
+                throw new Exception("Böyle Bir Kullanıcı Yok");
+            await _signInManager.PasswordSignInAsync(appUser, login.Password, true, false);
+        }
+
+        public async Task LogOut()
+        {
+            await _signInManager.SignOutAsync();
+        }
+
+        public async Task Update(UserUpdateDTO entity)
+        {
+            if (entity == null)
+                throw new Exception("Update Entity Boş");
+            AppUser appUser = _mapper.Map<AppUser>(entity);
+            appUser.UpdateDate = DateTime.Now;
+            appUser.Status = Status.Modified;
+            await _userManager.UpdateAsync(appUser);
         }
     }
 }

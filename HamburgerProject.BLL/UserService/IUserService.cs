@@ -12,9 +12,11 @@ namespace HamburgerProject.BLL.UserService
 {
     public interface IUserService
     {
-        Task Create(UserRegisterDTO entity);
+        Task<IdentityResult> Create(UserRegisterDTO entity, string Password);
         Task Update(UserUpdateDTO entity);
         Task Delete(string id);
+        Task LogIn(UserLoginDTO login);
+        Task LogOut();
         bool IsIdExist(string id);
         //SauceListDTO GetDefault(string sauceName);
         //SauceListDTO GetDefaultById(int id);

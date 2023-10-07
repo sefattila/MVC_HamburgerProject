@@ -1,9 +1,12 @@
 using HamburgerProject.BLL.MenuService;
 using HamburgerProject.BLL.OrderService;
 using HamburgerProject.BLL.SauceService;
+using HamburgerProject.BLL.UserService;
+using HamburgerProject.CORE.Entities;
 using HamburgerProject.REPOSITORY.Concretes;
 using HamburgerProject.REPOSITORY.Contexts;
 using HamburgerProject.REPOSITORY.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace HampurgerProjectMVC.UI
@@ -18,7 +21,7 @@ namespace HampurgerProjectMVC.UI
             builder.Services.AddControllersWithViews();
 
 
-            var conn = builder.Configuration.GetConnectionString("DefaultConnection");
+            var conn = builder.Configuration.GetConnectionString("DefaultConnection-Ev");
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(conn);
@@ -27,12 +30,26 @@ namespace HampurgerProjectMVC.UI
 
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            //builder.Services.AddTransient<ISauceRepo, SauceRepo>();
-            //builder.Services.AddTransient<IOrderRepo, OrderRepo>();
-            //builder.Services.AddTransient<IMenuRepo, MenuRepo>();
+            builder.Services.AddTransient<ISauceRepo, SauceRepo>();
+            builder.Services.AddTransient<IOrderRepo, OrderRepo>();
+            builder.Services.AddTransient<IMenuRepo, MenuRepo>();
+            builder.Services.AddTransient<IAppUserRepo, AppUserRepo>();
 
-            //builder.Services.AddTransient<ISauceService, SauceService>();
+            builder.Services.AddTransient<ISauceService, SauceService>();
+            builder.Services.AddTransient<IOrderService, OrderService>();
+            builder.Services.AddTransient<IMenuService, MenuService>();
+            builder.Services.AddTransient<IUserService, UserService>();
 
+            var a =builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequiredLength = 3;
+
+                options.User.RequireUniqueEmail = true;
+            }).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders().AddRoles<IdentityRole>();
 
             var app = builder.Build();
 
@@ -49,6 +66,7 @@ namespace HampurgerProjectMVC.UI
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

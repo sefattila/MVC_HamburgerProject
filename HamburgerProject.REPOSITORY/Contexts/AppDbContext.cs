@@ -1,4 +1,5 @@
 ﻿using HamburgerProject.CORE.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -24,6 +25,11 @@ namespace HamburgerProject.REPOSITORY.Contexts
                 .HasMany(o => o.Sauces)
                 .WithMany(s => s.Orders)
                 .UsingEntity(x => x.ToTable("OrderSauce"));
+
+            builder.Entity<IdentityRole>().HasData(
+                    new IdentityRole { Name = "admin", NormalizedName = "ADMIN" },
+                    new IdentityRole { Name = "user", NormalizedName = "USER" }
+                );
 
             base.OnModelCreating(builder);
         }
