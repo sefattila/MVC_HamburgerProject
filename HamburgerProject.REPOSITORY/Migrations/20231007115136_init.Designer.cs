@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HamburgerProject.REPOSITORY.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231005092944_init")]
+    [Migration("20231007115136_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -165,7 +165,7 @@ namespace HamburgerProject.REPOSITORY.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("Size")
+                    b.Property<int?>("Size")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -240,6 +240,22 @@ namespace HamburgerProject.REPOSITORY.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "94171a81-50cc-4768-8392-d7cac5e40a33",
+                            ConcurrencyStamp = "a28b7ff4-65a8-457d-89b6-7847bae91686",
+                            Name = "admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "8210eea6-4616-4dd6-9939-275a82de8d1b",
+                            ConcurrencyStamp = "b4296043-6167-40e2-a8ff-4198632a7453",
+                            Name = "user",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
