@@ -2,10 +2,12 @@
 using HamburgerProject.BLL.DTOs.SauceDTOs;
 using HamburgerProject.BLL.SauceService;
 using HampurgerProjectMVC.UI.Models.VMs.SauceVMs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HampurgerProjectMVC.UI.Controllers
 {
+    [Authorize(Roles ="admin")]
     public class SauceController : Controller
     {
         private readonly ISauceService _sauceService;

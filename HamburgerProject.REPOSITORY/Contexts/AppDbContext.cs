@@ -21,16 +21,41 @@ namespace HamburgerProject.REPOSITORY.Contexts
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            var adminRoleId = Guid.NewGuid().ToString();
+
             builder.Entity<Order>()
                 .HasMany(o => o.Sauces)
                 .WithMany(s => s.Orders)
                 .UsingEntity(x => x.ToTable("OrderSauce"));
 
             builder.Entity<IdentityRole>().HasData(
-                    new IdentityRole { Name = "admin", NormalizedName = "ADMIN" },
-                    new IdentityRole { Name = "user", NormalizedName = "USER" }
+                    new IdentityRole { Id = adminRoleId, Name = "admin", NormalizedName = "ADMIN" },
+                    new IdentityRole { Id= Guid.NewGuid().ToString(), Name = "user", NormalizedName = "USER" }
                 );
 
+
+            var hash = new PasswordHasher<AppUser>();
+            var adminUser = new AppUser
+            {
+                Id = Guid.NewGuid().ToString(),
+                FirstName = "sefa",
+                LastName = "attila",
+                UserName = "admin",
+                NormalizedUserName = "ADMIN",
+                Email = "admin@admin.com",
+                NormalizedEmail = "ADMIN@ADMIN.COM",
+                EmailConfirmed = true,
+                PasswordHash = hash.HashPassword(null, "admin"),
+                SecurityStamp = Guid.NewGuid().ToString()
+            };
+
+            builder.Entity<AppUser>().HasData(adminUser);
+
+            builder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = adminRoleId,
+                UserId = adminUser.Id
+            });
             base.OnModelCreating(builder);
         }
     }

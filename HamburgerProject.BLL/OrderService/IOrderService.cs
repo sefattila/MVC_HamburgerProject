@@ -18,5 +18,6 @@ namespace HamburgerProject.BLL.OrderService
         bool IsIdExist(int id);
         IList<OrderDTO> GetActive();
         IList<OrderDTO> GetAll();
+        OrderDTO GetById(int id);
     }
 }

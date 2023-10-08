@@ -2,10 +2,12 @@
 using HamburgerProject.BLL.DTOs.MenuDTOs;
 using HamburgerProject.BLL.MenuService;
 using HampurgerProjectMVC.UI.Models.VMs.MenuVMs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HampurgerProjectMVC.UI.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class MenuController : Controller
     {
         private readonly IMenuService _menuService;
@@ -17,6 +19,7 @@ namespace HampurgerProjectMVC.UI.Controllers
             _mapper = mapper;
         }
 
+        
         public IActionResult Index()
         {
             IList<MenuDTO> menuDTO = _menuService.GetActive();
@@ -24,11 +27,13 @@ namespace HampurgerProjectMVC.UI.Controllers
             return View(menuVM);
         }
 
+        //[Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             return View();
         }
 
+        //[Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult Create(MenuCreateVM menuVM)
         {
@@ -44,6 +49,7 @@ namespace HampurgerProjectMVC.UI.Controllers
             }
         }
 
+        //[Authorize(Roles = "admin")]
         public IActionResult Update(int id)
         {
             var updateDTO=_menuService.GetById(id);
@@ -51,6 +57,7 @@ namespace HampurgerProjectMVC.UI.Controllers
             return View(menuVM);
         }
 
+        //[Authorize(Roles = "admin")]
         [HttpPost]
         public IActionResult Update(MenuUpdateVM menuVM)
         {
@@ -64,6 +71,7 @@ namespace HampurgerProjectMVC.UI.Controllers
                 return BadRequest();
         }
 
+        //[Authorize(Roles = "admin")]
         public IActionResult Delete(int id)
         {
             _menuService.Delete(id);

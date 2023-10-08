@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HamburgerProject.BLL.DTOs.MenuDTOs;
 using HamburgerProject.BLL.DTOs.OrderDTOs;
 using HamburgerProject.CORE.Entities;
 using HamburgerProject.CORE.Enums;
@@ -48,6 +49,11 @@ namespace HamburgerProject.BLL.OrderService
             IList<Order> orders = _repo.GetAll();
             IList<OrderDTO> orderDTOs = _mapper.Map<IList<Order>, IList<OrderDTO>>(orders);
             return orderDTOs;
+        }
+
+        public OrderDTO GetById(int id)
+        {
+            return _mapper.Map<OrderDTO>(_repo.GetDefaultById(id));
         }
 
         public bool IsIdExist(int id)

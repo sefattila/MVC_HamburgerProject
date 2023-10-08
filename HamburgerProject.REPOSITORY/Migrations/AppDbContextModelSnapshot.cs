@@ -105,6 +105,28 @@ namespace HamburgerProject.REPOSITORY.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "c5a77bba-780e-4b07-83b3-0fca55cc5f68",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "baa7a2bc-8de2-4508-8ed3-9fa1b19bfde5",
+                            CreateDate = new DateTime(2023, 10, 8, 16, 16, 20, 355, DateTimeKind.Local).AddTicks(9534),
+                            Email = "admin@admin.com",
+                            EmailConfirmed = true,
+                            FirstName = "sefa",
+                            LastName = "attila",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@ADMIN.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGuSjRo+3QCU5n7TaTNscIjtPva1XnCQN9M4qFLgsgv17fymYJ+UBOw9kAhDAgE43A==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "d2c501ca-8305-4ee3-a98c-2d97e13ecc41",
+                            Status = 0,
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("HamburgerProject.CORE.Entities.Menu", b =>
@@ -242,15 +264,15 @@ namespace HamburgerProject.REPOSITORY.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "00afb5c7-20bf-4941-a649-c4b8622fcea6",
-                            ConcurrencyStamp = "08bc974a-4486-46c3-a873-6cc441319ee9",
+                            Id = "85c64868-0c71-411f-a6fb-5d40a6f86a88",
+                            ConcurrencyStamp = "5434ac56-53c0-41a2-afd0-d1a309ae6f08",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "3f1e6736-ebaf-4abc-bdc5-f14a8bd898b6",
-                            ConcurrencyStamp = "d107251f-5375-47bc-ad1b-4893e6320f7b",
+                            Id = "a1bbe0f0-24af-4f21-90a6-c9c5c2536a6f",
+                            ConcurrencyStamp = "a6a57a3e-31c9-4740-a743-d8eb1d73d7b1",
                             Name = "user",
                             NormalizedName = "USER"
                         });
@@ -341,6 +363,13 @@ namespace HamburgerProject.REPOSITORY.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "c5a77bba-780e-4b07-83b3-0fca55cc5f68",
+                            RoleId = "85c64868-0c71-411f-a6fb-5d40a6f86a88"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
