@@ -1,0 +1,29 @@
+﻿@using HampurgerProjectMVC.UI.Models.VMs.MenuVMs;
+@model IEnumerable<MenuVM>
+
+<div class="container col-lg-4">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Menu Adı</th>
+                <th>Menu Fiyatı</th>
+                <th>Güncelle</th>
+                <th>Sil</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (MenuVM item in Model)
+            {
+                <tr>
+                    <th>@item.Id</th>
+                    <th>@item.MenuName</th>
+                    <th>@item.MenuPrice</th>
+                    <th><a asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning">Güncelle</a></th>
+                    <th><a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Sil</a></th>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="Create" class="btn btn-outline-success">Menu Ekle</a>
+</div>

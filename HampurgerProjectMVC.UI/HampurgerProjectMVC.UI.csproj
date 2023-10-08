@@ -19,8 +19,4 @@
     <ProjectReference Include="..\HamburgerProject.BLL\HamburgerProject.BLL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Account\" />
-  </ItemGroup>
-
 </Project>

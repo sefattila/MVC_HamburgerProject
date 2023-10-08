@@ -22,5 +22,6 @@ namespace HamburgerProject.BLL.UserService
         //SauceListDTO GetDefaultById(int id);
         IList<UserDTO> GetActive();
         IList<UserDTO> GetAll();
+        Task<UserDTO> GetById(string id);
     }
 }

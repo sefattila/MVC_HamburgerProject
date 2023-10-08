@@ -19,7 +19,9 @@ namespace HampurgerProjectMVC.UI.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            IList<UserDTO> users = _userService.GetActive();
+            IList<UserVM> userVMs=_mapper.Map<IList<UserVM>>(users);
+            return View(userVMs);
         }
 
         public IActionResult Create()
@@ -35,7 +37,7 @@ namespace HampurgerProjectMVC.UI.Controllers
                 UserRegisterDTO userRegisterDTO= _mapper.Map<UserRegisterDTO>(registerVM);
                 var result=await _userService.Create(userRegisterDTO,registerVM.Password);
                 if (result.Succeeded)
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index");
                 else
                 {
                     foreach (var error in result.Errors)
@@ -45,6 +47,32 @@ namespace HampurgerProjectMVC.UI.Controllers
                 }
             }
             return View();
+        }
+
+        public async Task<IActionResult> Update(string id)
+        {
+            UserDTO userDTO=await _userService.GetById(id);
+            UserUpdateVM userUpdateVM=_mapper.Map<UserUpdateVM>(userDTO);
+            return View(userUpdateVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(UserUpdateVM updateVM)
+        {
+            if (ModelState.IsValid)
+            {
+                UserUpdateDTO userUpdateDTO = _mapper.Map<UserUpdateDTO>(updateVM);
+                await _userService.Update(userUpdateDTO);
+                return RedirectToAction("Index");
+            }
+            else
+                return BadRequest();
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            await _userService.Delete(id);
+            return RedirectToAction("Index");
         }
     }
 }

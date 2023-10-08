@@ -1,3 +1,4 @@
+using HamburgerProject.BLL.AutoMapper;
 using HamburgerProject.BLL.MenuService;
 using HamburgerProject.BLL.OrderService;
 using HamburgerProject.BLL.SauceService;
@@ -20,7 +21,7 @@ namespace HampurgerProjectMVC.UI
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             var conn = builder.Configuration.GetConnectionString("DefaultConnection-Ev");
             builder.Services.AddDbContext<AppDbContext>(options =>
             {

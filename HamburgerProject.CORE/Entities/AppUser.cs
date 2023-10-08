@@ -20,6 +20,6 @@ namespace HamburgerProject.CORE.Entities
 
 
         //Nav Prop
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Order>? Orders { get; set; }
     }
 }

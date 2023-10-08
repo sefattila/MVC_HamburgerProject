@@ -1,0 +1,24 @@
+﻿@using HampurgerProjectMVC.UI.Models.VMs.MenuVMs;
+@model MenuUpdateVM
+
+<div class="container col-lg-4">
+    <form asp-action="Update" method="post">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th><label asp-for="MenuName" class="control-label"></label></th>
+                    <td><input type="text" asp-for="MenuName" class="form-control" /></td>
+                    <span asp-validation-for="MenuName" class="text-danger"></span>
+                </tr>
+                <tr>
+                    <th><label asp-for="MenuPrice" class="control-label"></label></th>
+                    <td><input type="number" asp-for="MenuPrice" class="form-control" /></td>
+                    <span asp-validation-for="MenuPrice" class="text-danger"></span>
+                </tr>
+                <tr>
+                    <td><button type="submit" class="btn btn-warning">Güncelle</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>

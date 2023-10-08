@@ -19,8 +19,8 @@ namespace HampurgerProjectMVC.UI.Controllers
 
         public IActionResult Index()
         {
-            var menuDTO = _menuService.GetActive();
-            var menuVM = _mapper.Map<MenuVM>(menuDTO);
+            IList<MenuDTO> menuDTO = _menuService.GetActive();
+            IList<MenuVM> menuVM = _mapper.Map<IList<MenuVM>>(menuDTO);
             return View(menuVM);
         }
 
@@ -34,7 +34,7 @@ namespace HampurgerProjectMVC.UI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var menuDTO=_mapper.Map<MenuCreateDTO>(menuVM);
+                MenuCreateDTO menuDTO=_mapper.Map<MenuCreateDTO>(menuVM);
                 _menuService.Create(menuDTO);
                 return RedirectToAction("Index");
             }

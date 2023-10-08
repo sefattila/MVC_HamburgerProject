@@ -2,5 +2,7 @@
 {
     public class SauceCreateVM
     {
+        public string SauceName { get; set; }
+        public double SaucePrice { get; set; }
     }
 }

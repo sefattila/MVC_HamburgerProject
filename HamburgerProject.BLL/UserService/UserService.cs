@@ -35,11 +35,13 @@ namespace HamburgerProject.BLL.UserService
                 throw new Exception("User Boş");
             }
             AppUser appUser = _mapper.Map<AppUser>(entity);
-            //AppUser appUserRole=await _userManager.FindByEmailAsync(entity.Email);
-
-            await _userManager.AddToRoleAsync(appUser, "user");
 
             var result = await _userManager.CreateAsync(appUser, Password);
+
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(appUser, "user");
+            }
 
             return result;
         }
@@ -50,13 +52,13 @@ namespace HamburgerProject.BLL.UserService
             {
                 throw new Exception("Id Boş");
             }
-            if (_userRepo.Any(x => x.Id == id))
+            if (!_userRepo.Any(x => x.Id == id))
             {
                 throw new Exception("Böyle Bir Id Yok");
             }
             AppUser appUser = await _userManager.FindByIdAsync(id);
             appUser.DeleteDate = DateTime.Now;
-            appUser.Status = Status.Active;
+            appUser.Status = Status.Passive;
             await _userManager.UpdateAsync(appUser);
 
         }
@@ -73,6 +75,12 @@ namespace HamburgerProject.BLL.UserService
             IList<AppUser> appUsers = _userRepo.GetAll();
             IList<UserDTO> userDTOs = _mapper.Map<IList<AppUser>, IList<UserDTO>>(appUsers);
             return userDTOs;
+        }
+
+        public async Task<UserDTO> GetById(string id)
+        {
+            AppUser appUser = await _userManager.FindByIdAsync(id);
+            return _mapper.Map<UserDTO>(appUser);
         }
 
         public bool IsIdExist(string id)
@@ -99,10 +107,25 @@ namespace HamburgerProject.BLL.UserService
         {
             if (entity == null)
                 throw new Exception("Update Entity Boş");
-            AppUser appUser = _mapper.Map<AppUser>(entity);
-            appUser.UpdateDate = DateTime.Now;
-            appUser.Status = Status.Modified;
-            await _userManager.UpdateAsync(appUser);
+
+            AppUser updateUser = await _userManager.FindByIdAsync(entity.Id);
+            if (updateUser == null)
+                throw new Exception("Kullanıcı bulunamadı");
+
+            _mapper.Map(entity, updateUser);
+
+            updateUser.UpdateDate = DateTime.Now;
+            updateUser.Status = Status.Modified;
+
+            await _userManager.UpdateAsync(updateUser);
+
+
+            //if (entity == null)
+            //    throw new Exception("Update Entity Boş");
+            //AppUser appUser = _mapper.Map<AppUser>(entity);
+            //appUser.UpdateDate = DateTime.Now;
+            //appUser.Status = Status.Modified;
+            //await _userManager.UpdateAsync(appUser);
         }
     }
 }

@@ -52,6 +52,11 @@ namespace HamburgerProject.BLL.SauceService
             return sauceDTOs;
         }
 
+        public SauceDTO GetById(int id)
+        {
+            return _mapper.Map<SauceDTO>(_repo.GetDefaultById(id));
+        }
+
         public bool IsIdExist(string sauceName)
         {
             return _repo.Any(x=>x.SauceName==sauceName);

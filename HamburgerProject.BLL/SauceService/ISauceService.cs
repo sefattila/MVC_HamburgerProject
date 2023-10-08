@@ -20,5 +20,6 @@ namespace HamburgerProject.BLL.SauceService
         //SauceListDTO GetDefaultById(int id);
         IList<SauceDTO> GetActive();
         IList<SauceDTO> GetAll();
+        SauceDTO GetById(int id);
     }
 }
